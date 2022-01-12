@@ -5,24 +5,20 @@ const path = require('path');
 const mongoose = require('mongoose');
 
 const routes = require('./src/routes');
-
 const app = express();
+const dbConfig = require('./src/config/database');
 
-mongoose.connect(
-    'mongodb://mongo:27017/backend-node-mongo', 
-    {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        //useFindAndModify: false
-    },
-    function(err){
-        if(err) {
-            console.log('Erro ao conectar no mongodb', err);
-        } else {
-            console.log('Mongo conectado com sucesso')
-        }
-    }
-);
+mongoose.Promise = global.Promise;
+mongoose.connect(dbConfig.url, {
+    useNewUrlParser: true,
+    user: dbConfig.user,
+    pass: dbConfig.pwd
+}).then(() => {
+    console.log('successfully connected to the database');
+}).catch(err => {
+    console.log('error connecting to the database', err, dbConfig);
+    process.exit();
+});
 
 app.use(cors());
 app.use(cookieParser());
