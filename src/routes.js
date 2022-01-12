@@ -8,5 +8,6 @@ routes.get('/', function(req, res){
 });
 
 routes.get('/usuario', UsuarioController.index);
+routes.post('/usuario', UsuarioController.store);
 
 module.exports = routes;
