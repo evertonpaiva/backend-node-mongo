@@ -2,7 +2,13 @@ const Usuario = require('../model/Usuario');
 
 module.exports = {
     async index(req, res) {
-        const usuario = await Usuario.find();
+        const usuarios = await Usuario.find();
+        res.json(usuarios);
+    },
+
+    async detail(req, res) {
+        const { _id } = req.params;
+        const usuario = await Usuario.findOne({_id});
         res.json(usuario);
     },
 
