@@ -29,4 +29,16 @@ module.exports = {
         const usuario = await Usuario.findByIdAndDelete({_id});
         res.json(usuario);
     },
+
+    async update(req, res) {
+        const { _id, nome, senha } = req.body;
+        let dataUpdate = {};
+
+        dataUpdate = {
+            nome, senha
+        };
+
+        const usuario = await Usuario.findByIdAndUpdate({ _id}, dataUpdate, {new:true});
+        res.json(usuario);
+    },
 }
