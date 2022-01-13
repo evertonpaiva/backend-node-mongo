@@ -22,5 +22,11 @@ module.exports = {
 
         const usuario = await Usuario.create(dataCreate);
         res.json(usuario);
-    }
+    },
+
+    async delete(req, res) {
+        const { _id } = req.params;
+        const usuario = await Usuario.findByIdAndDelete({_id});
+        res.json(usuario);
+    },
 }
